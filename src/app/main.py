@@ -13,7 +13,7 @@ from src.app.messages import (
     prizes_text,
     help_text,
 )
-from config import logger, settings, bot
+from src.app.config import logger, settings, bot
 from src.app.service import (
     new_work,
     reply_message,
