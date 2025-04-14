@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker,
 )
+from pyromod import Client
 
 BASE_DIR = Path(__file__).parent.parent
 DATE_FORMAT = "%d.%m.%Y"
@@ -21,6 +22,7 @@ logger.add(
     rotation="10 MB",
     retention="1 week",
 )
+
 
 class DatabaseHelper:
     def __init__(self, url: str, echo: bool = False):
@@ -37,19 +39,30 @@ class DatabaseHelper:
             yield session
             await session.close()
 
+
 class Settings(BaseSettings):
-    BOT_TOKEN: str
-    API_ID: int = 0
-    API_HASH: str = 'some_string'
-    ADMIN_CHAT: int = 0
+    BOT_TOKEN: str = "7849308296:AAHDpJPMJQ-YiZeNTStY1--4dVwJ5TKlJLQ"
+    API_ID: int = 16233010
+    API_HASH: str = "4a64ab8c1674910f6e29ba6f3e3f3cb1"
+    ADMIN_CHAT: int = 1002820269
     MAX_ENTRIES_PER_USER: int = 10
     COMPETITION_START: datetime = datetime.strptime("15.04.2025", DATE_FORMAT)
     COMPETITION_END: datetime = datetime.strptime("20.05.2025", DATE_FORMAT)
     RESULTS_DATE: datetime = datetime.strptime("30.05.2025", DATE_FORMAT)
 
-    DatabaseHelper = DatabaseHelper(url = 'sqlite+aiosqlite:///db.sqlite3')
+    db_helper: DatabaseHelper = DatabaseHelper(
+        url=f"sqlite+aiosqlite:///{BASE_DIR.parent / 'db.sqlite3'}"
+    )
 
     class Config:
         extra = "ignore"
 
+
 settings = Settings()
+bot = Client(
+    "bot",
+    bot_token=settings.BOT_TOKEN,
+    api_id=settings.API_ID,
+    api_hash=settings.API_HASH,
+    workdir=BASE_DIR / "src" / "sessions",
+)
