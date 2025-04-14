@@ -1,0 +1,13 @@
+[project]
+name = "contest"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "kurigram>=2.2.0",
+    "loguru>=0.7.3",
+    "pydantic-settings>=2.8.1",
+    "pyromod>=3.1.6",
+    "sqlmodel>=0.0.24",
+]
