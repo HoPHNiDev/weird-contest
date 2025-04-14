@@ -61,13 +61,13 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-if not os.path.exists(f"{BASE_DIR}/src/sessions"):
-    os.makedirs(f"{BASE_DIR}/src/sessions")
+if not os.path.exists(f"{BASE_DIR}/app/sessions"):
+    os.makedirs(f"{BASE_DIR}/app/sessions")
 
 bot = Client(
     "bot",
     bot_token=settings.BOT_TOKEN,
     api_id=settings.API_ID,
     api_hash=settings.API_HASH,
-    workdir=BASE_DIR / "src" / "sessions",
+    workdir=BASE_DIR / "app" / "sessions",
 )

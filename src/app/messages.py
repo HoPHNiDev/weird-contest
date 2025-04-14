@@ -1,5 +1,5 @@
-from src.app.config import settings
-from src.app.models import User, Works
+from app.config import settings
+from app.models import User, Works
 
 welcome_text = f"""Привет, дорогой участник!
 Ты попал в бот конкурса на лучший рисунок/дизайн для проекта Your Fit!
