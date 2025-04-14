@@ -90,5 +90,5 @@ async def handle_message(client: Client, message: Message):
 
 
 if __name__ == "__main__":
-    logger.info(f"Running {__name__}")
+    logger.info(f"Running {__name__} BOT")
     bot.run()
