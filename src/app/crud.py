@@ -1,4 +1,4 @@
-from app.src.models import User, Works
+from src.app.models import User, Works
 
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession

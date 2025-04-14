@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).parent.parent
 DATE_FORMAT = "%d.%m.%Y"
 
 logger.add(
-    BASE_DIR / "logs" / "app.log",
+    BASE_DIR / "logs" / "src.log",
     format="{time} | {level} | {message}",
     level="DEBUG",
     rotation="10 MB",

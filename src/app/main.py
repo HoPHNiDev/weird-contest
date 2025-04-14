@@ -1,9 +1,9 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from app.src.buttons import buttons
-from app.src.crud import get_or_create_user, get_user_works_count
-from app.src.messages import (
+from src.app.buttons import buttons
+from src.app.crud import get_or_create_user, get_user_works_count
+from src.app.messages import (
     welcome_text,
     max_work_sent,
     unknown_command,
@@ -14,7 +14,7 @@ from app.src.messages import (
     help_text,
 )
 from config import logger, settings, bot
-from app.src.service import (
+from src.app.service import (
     new_work,
     reply_message,
 )
