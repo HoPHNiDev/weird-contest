@@ -3,9 +3,9 @@ from pyromod import Client as PyromodClient
 from pyromod.exceptions import ListenerTimeout
 from pyrogram.types import Message, ReplyParameters
 
-from app.config import settings
-from app.crud import create_work
-from app.messages import (
+from src.app.config import settings
+from src.app.crud import create_work
+from src.app.messages import (
     send_work_media,
     timeout_text,
     send_work_text,
@@ -13,8 +13,8 @@ from app.messages import (
     success_work_msg,
     main_menu,
 )
-from app.buttons import buttons
-from app.models import User
+from src.app.buttons import buttons
+from src.app.models import User
 
 
 async def get_media(
