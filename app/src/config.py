@@ -1,3 +1,4 @@
+import os.path
 from datetime import datetime
 from pathlib import Path
 from typing import AsyncGenerator
@@ -59,6 +60,10 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+if not os.path.exists(f"{BASE_DIR}/src/sessions"):
+    os.makedirs(f"{BASE_DIR}/src/sessions")
+
 bot = Client(
     "bot",
     bot_token=settings.BOT_TOKEN,
