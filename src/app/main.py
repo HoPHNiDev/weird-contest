@@ -1,7 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from app.messages import about_us_text
 from src.app.buttons import buttons
 from src.app.crud import get_or_create_user, get_user_works_count
 from src.app.messages import (
@@ -13,6 +12,7 @@ from src.app.messages import (
     schedule_text,
     prizes_text,
     help_text,
+    about_us_text,
 )
 from src.app.config import logger, settings, bot
 from src.app.service import (
