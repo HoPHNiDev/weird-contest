@@ -8,6 +8,7 @@ class Buttons:
     prizes_text = "🏆 Призы"
     help_text = "❓ Помощь"
     send_work = "🎨 Отправить работу"
+    about_us_text = "🏅 О нас"
 
     @property
     def cancel_button(self):
@@ -28,6 +29,7 @@ class Buttons:
                     KeyboardButton(self.prizes_text),
                     KeyboardButton(self.help_text),
                 ],
+                [KeyboardButton(self.about_us_text)],
             ],
             resize_keyboard=True,
         )
