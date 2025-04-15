@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from app.messages import about_us_text
 from src.app.buttons import buttons
 from src.app.crud import get_or_create_user, get_user_works_count
 from src.app.messages import (
@@ -64,18 +65,20 @@ async def handle_message(client: Client, message: Message):
     msg_text = message.text or message.caption
     is_text = msg_text and not message.media
 
-    if is_text and "Условия конкурса" in msg_text:
+    if is_text and buttons.terms_text in msg_text:
         return await reply_message(client, message, terms_text)
-    elif is_text and "Отправить работу" in msg_text:
+    elif is_text and buttons.send_work in msg_text:
         if user_works_count >= settings.MAX_ENTRIES_PER_USER:
             return await message.reply_text(max_work_sent)
         return await new_work(client, message, user)
-    elif is_text and "Сроки проведения" in msg_text:
+    elif is_text and buttons.schedule_text in msg_text:
         return await reply_message(client, message, schedule_text)
-    elif is_text and "Призы" in msg_text:
+    elif is_text and buttons.prizes_text in msg_text:
         return await reply_message(client, message, prizes_text)
-    elif is_text and "Помощь" in msg_text:
+    elif is_text and buttons.help_text in msg_text:
         return await reply_message(client, message, help_text)
+    elif is_text and buttons.about_us_text in msg_text:
+        return await reply_message(client, message, about_us_text)
     elif is_text and buttons.cancel_text in msg_text:
         return await message.reply_text(
             text=main_menu,
