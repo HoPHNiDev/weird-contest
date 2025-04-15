@@ -106,35 +106,27 @@ async def new_work(client: PyromodClient, message: Message, user: User) -> None:
         message_ids=media_message_id,
     )
 
-    new_work_message = new_work_msg(user=user, description=media_description)
+    async for session in settings.db_helper.session_dependency():
+        work = await create_work(
+            session=session, user=user, work_link=forwarded_images.link
+        )
+
+    new_work_message = new_work_msg(user=user, description=media_description, work=work)
     work_message = await client.send_message(
         chat_id=settings.ADMIN_CHAT,
         text=new_work_message,
         reply_parameters=ReplyParameters(message_id=forwarded_images.id),
         link_preview_options=LinkPreviewOptions(is_disabled=True),
     )
-    async for session in settings.db_helper.session_dependency():
-        work = await create_work(
-            session=session, user=user, work_link=forwarded_images.link
-        )
+    if not work_message:
+        return None
 
-        success_text = success_work_msg(work=work)
-        await message.reply(
-            text=success_text,
-            reply_markup=buttons.main_menu,
-            link_preview_options=LinkPreviewOptions(is_disabled=True),
-        )
-
-        new_work_message = new_work_msg(
-            user=user, description=media_description, work=work
-        )
-
-        await client.edit_message_text(
-            chat_id=work_message.chat.id,
-            message_id=work_message.id,
-            text=new_work_message,
-            link_preview_options=LinkPreviewOptions(is_disabled=True),
-        )
+    success_text = success_work_msg(work=work)
+    await message.reply(
+        text=success_text,
+        reply_markup=buttons.main_menu,
+        link_preview_options=LinkPreviewOptions(is_disabled=True),
+    )
 
 
 async def reply_message(client: Client, message: Message, text):
