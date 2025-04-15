@@ -106,18 +106,18 @@ async def new_work(client: PyromodClient, message: Message, user: User) -> None:
         message_ids=media_message_id,
     )
 
-    new_work_message = new_work_msg(user=user, description=media_description)
+    async for session in settings.db_helper.session_dependency():
+        work = await create_work(
+            session=session, user=user, work_link=forwarded_images.link
+        )
+
+    new_work_message = new_work_msg(user=user, description=media_description, work=work)
     work_message = await client.send_message(
         chat_id=settings.ADMIN_CHAT,
         text=new_work_message,
         reply_parameters=ReplyParameters(message_id=forwarded_images.id),
     )
-
-    async for session in settings.db_helper.session_dependency():
-        work = await create_work(
-            session=session, user=user, work_link=work_message.link
-        )
-
+    if work_message:
         success_text = success_work_msg(work=work)
         await message.reply(
             text=success_text,
