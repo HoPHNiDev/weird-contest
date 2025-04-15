@@ -1,7 +1,7 @@
 from pyrogram import Client
 from pyromod import Client as PyromodClient
 from pyromod.exceptions import ListenerTimeout
-from pyrogram.types import Message, ReplyParameters
+from pyrogram.types import Message, ReplyParameters, LinkPreviewOptions
 
 from src.app.config import settings
 from src.app.crud import create_work
@@ -111,7 +111,7 @@ async def new_work(client: PyromodClient, message: Message, user: User) -> None:
         chat_id=settings.ADMIN_CHAT,
         text=new_work_message,
         reply_parameters=ReplyParameters(message_id=forwarded_images.id),
-        disable_web_page_preview=True,
+        link_preview_options=LinkPreviewOptions(is_disabled=True),
     )
     async for session in settings.db_helper.session_dependency():
         work = await create_work(
@@ -122,7 +122,7 @@ async def new_work(client: PyromodClient, message: Message, user: User) -> None:
         await message.reply(
             text=success_text,
             reply_markup=buttons.main_menu,
-            disable_web_page_preview=True,
+            link_preview_options=LinkPreviewOptions(is_disabled=True),
         )
 
         new_work_message = new_work_msg(
@@ -133,7 +133,7 @@ async def new_work(client: PyromodClient, message: Message, user: User) -> None:
             chat_id=work_message.chat.id,
             message_id=work_message.id,
             text=new_work_message,
-            disable_web_page_preview=True,
+            link_preview_options=LinkPreviewOptions(is_disabled=True),
         )
 
 
@@ -142,5 +142,5 @@ async def reply_message(client: Client, message: Message, text):
         chat_id=message.chat.id,
         text=text,
         reply_parameters=ReplyParameters(message_id=message.id),
-        disable_web_page_preview=True,
+        link_preview_options=LinkPreviewOptions(is_disabled=True),
     )
